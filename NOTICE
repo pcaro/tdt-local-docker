@@ -1,0 +1,20 @@
+tdt-local-docker
+Copyright 2026 pcaro
+
+Dockerfile, plantilla de Unraid y flujo de trabajo de esta imagen. Se publican
+bajo la Apache License, Version 2.0 (ver LICENSE).
+
+------------------------------------------------------------------------------
+Software que contiene la imagen
+------------------------------------------------------------------------------
+
+TDT local  https://github.com/cibernicola/tdt-local
+  Copyright 2026 TDT local contributors
+  Licencia: Apache License 2.0. La imagen instala el código fuente de la versión
+  fijada en el Dockerfile (ARG TDT_VERSION), sin modificarlo, y copia su LICENSE
+  y su NOTICE en /usr/share/doc/tdt-local/. El NOTICE del proyecto original cita,
+  a su vez, TDTChannels y hls.js (Apache License 2.0), que siguen aplicando.
+
+Ninguna de estas licencias concede derecho alguno sobre los canales, los
+programas ni los derechos de emisión, que son de sus titulares. Esta imagen no
+redistribuye listas ni flujos: el programa los descarga al arrancar.

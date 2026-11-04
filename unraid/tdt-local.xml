@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>tdt-local</Name>
+  <Repository>ghcr.io/pcaro/tdt-local-docker:latest</Repository>
+  <Registry>https://github.com/pcaro/tdt-local-docker/pkgs/container/tdt-local-docker</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/pcaro/tdt-local-docker/issues</Support>
+  <Project>https://github.com/cibernicola/tdt-local</Project>
+  <Overview>Visor web de la TDT española y la radio (listas de TDTChannels): guía de programación, multivisión de 4 canales, U7D de RTVE. Imagen no oficial, sin autenticación: úsala solo en tu red local o por VPN.</Overview>
+  <Category>MediaApp:Video MediaServer:Video Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8788]/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/pcaro/tdt-local-docker/main/unraid/tdt-local.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/pcaro/tdt-local-docker/main/unraid/tdt-local.png</Icon>
+  <ExtraParams/>
+  <PostArgs>--lan --port 8788 --data-dir /data</PostArgs>
+  <CPUset/>
+  <DateInstalled>0</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Description>tdt-local es un visor web local para la TDT española y la radio, alimentado por las listas públicas de TDTChannels. Reproduce los directos HLS a través de un proxy local, trae guía de programación (EPG), multivisión de cuatro canales con audio rotativo y los últimos siete días de RTVE.
+
+Esta plantilla instala una imagen NO oficial (el proyecto original no publica Docker). El contenedor solo hace de proxy: no transcodifica, así que vale cualquier CPU.
+
+Avisos: no tiene autenticación, no lo expongas a internet. Los ajustes de la pantalla «Ajustes» no se pueden guardar desde la web dentro de Docker (el programa exige que la petición venga de 127.0.0.1): usa las variables TDT_* de esta plantilla. Los subtítulos (whisper) y el asistente de IA necesitan programas aparte y no están incluidos.</Description>
+  <Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8788</HostPort>
+        <ContainerPort>8788</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/tdt-local</HostDir>
+      <ContainerDir>/data</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>0</Value>
+      <Name>TDT_AI_ENABLED</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>0</Value>
+      <Name>TDT_STT_ENABLED</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>6</Value>
+      <Name>TDT_UPDATE_HOURS</Name>
+      <Mode/>
+    </Variable>
+    <Variable>
+      <Value>0</Value>
+      <Name>TDT_AUTO_CHECK</Name>
+      <Mode/>
+    </Variable>
+  </Environment>
+  <Config Name="Puerto web" Target="8788" Default="8788" Mode="tcp" Description="Puerto de la interfaz web." Type="Port" Display="always" Required="true" Mask="false">8788</Config>
+  <Config Name="Datos" Target="/data" Default="/mnt/user/appdata/tdt-local" Mode="rw" Description="Listas, guía, canales propios y ajustes." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/tdt-local</Config>
+  <Config Name="Asistente de IA" Target="TDT_AI_ENABLED" Default="0" Mode="" Description="1 para usar un servidor compatible con OpenAI (llama.cpp). Sin él, déjalo en 0." Type="Variable" Display="advanced" Required="false" Mask="false">0</Config>
+  <Config Name="Subtítulos" Target="TDT_STT_ENABLED" Default="0" Mode="" Description="1 para subtítulos con whisper.cpp. No está incluido en la imagen: déjalo en 0." Type="Variable" Display="advanced" Required="false" Mask="false">0</Config>
+  <Config Name="Horas entre actualizaciones" Target="TDT_UPDATE_HOURS" Default="6" Mode="" Description="Cada cuántas horas se vuelven a leer las listas de TDTChannels." Type="Variable" Display="advanced" Required="false" Mask="false">6</Config>
+  <Config Name="Comprobar streams" Target="TDT_AUTO_CHECK" Default="0" Mode="" Description="1 para comprobar qué canales responden tras cada actualización." Type="Variable" Display="advanced" Required="false" Mask="false">0</Config>
+</Container>
