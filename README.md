@@ -48,7 +48,6 @@ POST /api/settings → 403 {"error": "los ajustes solo se pueden cambiar desde e
 ```
 
 Tres formas de vivir con ello, de menos a más incómoda:
-
 1. **Variables de entorno** (lo normal). Cualquier ajuste de la pantalla «Ajustes» se fija con
    `TDT_<NOMBRE_EN_MAYÚSCULAS>` y, al estar fijado, la interfaz lo muestra de solo lectura. Ejemplos:
    `TDT_UPDATE_HOURS=12`, `TDT_EPG_ENABLED=0`, `TDT_AUTO_CHECK=1`, `TDT_LLM_URL=http://192.168.1.10:8080/v1`,
@@ -65,6 +64,11 @@ Tres formas de vivir con ello, de menos a más incómoda:
    Con red `bridge` el túnel **no** sirve.
 
 Leer ajustes, refrescar las listas, comprobar canales y añadir canales propios funciona sin problema.
+
+**Publicar el puerto solo en `127.0.0.1` no arregla nada.** `-p 127.0.0.1:8788:8788` decide desde qué direcciones del
+host se puede llegar al puerto, pero el contenedor sigue viendo la IP del bridge: la respuesta es el mismo 403. La IP
+que cuenta es la que ve el programa dentro del contenedor, y con red `bridge` esa IP es siempre el gateway de Docker
+(o la del proxy de userland), venga la conexión de donde venga.
 
 ## Qué no trae la imagen
 
