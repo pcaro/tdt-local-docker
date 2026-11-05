@@ -24,19 +24,23 @@ Con Compose, [`compose.yaml`](compose.yaml) ya viene listo: `docker compose up -
 
 ## Unraid
 
-**Opcional pero recomendado:** instala antes el plugin *Compose Manager* y usa el `compose.yaml`; es lo que menos
-sorpresas da al actualizar.
+La vía fiable es dejar la plantilla en el USB y crearla desde la interfaz. Por SSH o con el botón **>_**, una
+sola orden:
 
-Con plantilla (aparece como un contenedor normal, con su icono y sus campos):
+```bash
+curl -fsSL -o /boot/config/plugins/dockerMan/templates-user/my-tdt-local.xml \
+  https://raw.githubusercontent.com/pcaro/tdt-local-docker/main/unraid/tdt-local.xml
+```
 
-1. **Docker** → *Add Container*.
-2. En *Template* pega:
-   `https://raw.githubusercontent.com/pcaro/tdt-local-docker/main/unraid/tdt-local.xml`
-3. Ajusta el puerto si el 8788 está ocupado, deja `/mnt/user/appdata/tdt-local` como carpeta de datos y pulsa
-   **Apply**.
+Después, **Docker** → *Add Container* → en *Template* elige **tdt-local** → revisa puerto y carpeta → **Apply**.
 
-El XML está en [`unraid/tdt-local.xml`](unraid/tdt-local.xml). Los cuatro campos de la plantilla
-(`TDT_AI_ENABLED`, `TDT_STT_ENABLED`, `TDT_UPDATE_HOURS`, `TDT_AUTO_CHECK`) son los que de verdad se usan aquí.
+Atajo para saltarse la plantilla: **Docker** → *Add Container* con *Repository* `ghcr.io/pcaro/tdt-local-docker:latest`,
+puerto `8788`, carpeta `/data` → `/mnt/user/appdata/tdt-local`, y las variables `TDT_AI_ENABLED=0` y
+`TDT_STT_ENABLED=0`. Deja **Post Arguments** vacío: lo que escribas ahí sustituye al comando de la imagen y el
+contenedor no arranca.
+
+El campo *Template URL* de esa pantalla **no descarga nada** (en el código de Unraid está en un bloque `noshow`,
+es solo metadato para el autor de la plantilla). El XML está en [`unraid/tdt-local.xml`](unraid/tdt-local.xml).
 
 ## Ajustes: la web no deja guardarlos dentro de Docker
 

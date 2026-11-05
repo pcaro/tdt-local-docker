@@ -15,7 +15,7 @@
   <TemplateURL>https://raw.githubusercontent.com/pcaro/tdt-local-docker/main/unraid/tdt-local.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/pcaro/tdt-local-docker/main/unraid/tdt-local.png</Icon>
   <ExtraParams/>
-  <PostArgs>--lan --port 8788 --data-dir /data</PostArgs>
+  <PostArgs/>
   <CPUset/>
   <DateInstalled>0</DateInstalled>
   <DonateText/>
